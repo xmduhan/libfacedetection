@@ -36,6 +36,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 if(ENABLE_NEON)
 	message("using arm")
 	add_definitions(-D_ENABLE_NEON)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfpu=neon")
 endif()
 
 set(CMAKE_CXX_STANDARD 11)
