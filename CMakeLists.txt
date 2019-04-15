@@ -31,6 +31,8 @@ if(ENABLE_AVX2)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2 -mfma")
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
 if(ENABLE_NEON)
 	message("using arm")
 	add_definitions(-D_ENABLE_NEON)
