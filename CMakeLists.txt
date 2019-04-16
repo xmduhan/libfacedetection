@@ -73,6 +73,7 @@ if (PYTHON)
     find_package(OpenCV REQUIRED)
     include_directories(${OpenCV_INCLUDE_DIRS})
 
+    find_package(PythonInterp 2.7 REQUIRED)
     find_package(PythonLibs 2.7 REQUIRED)
     INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
     message("PYTHON_INCLUDE_PATH: ${PYTHON_INCLUDE_PATH}")
@@ -80,7 +81,6 @@ if (PYTHON)
     INCLUDE_DIRECTORIES(${fdt_inc_dir})
     INCLUDE_DIRECTORIES(${fdt_base_dir}/python)
 
-    find_package(PythonInterp 2.7 REQUIRED)
     execute_process(
         COMMAND "${PYTHON_EXECUTABLE}" -c "import numpy; print '/'.join(numpy.__file__.split('/')[:-1])"
         OUTPUT_VARIABLE PYTHON_SITE
@@ -90,7 +90,8 @@ if (PYTHON)
 
     SET(CMAKE_SWIG_FLAGS "")
 
-    SET_SOURCE_FILES_PROPERTIES(python/libfdt.i CPLUSPLUS ON)
+    # SET_SOURCE_FILES_PROPERTIES(python/libfdt.i CPLUSPLUS ON)
+    set_property(SOURCE python/libfdt.i PROPERTY CPLUSPLUS ON)
     SWIG_ADD_MODULE(libfdt python python/libfdt.i python/libfdt.cpp)
     SWIG_LINK_LIBRARIES(libfdt ${fdt_lib_static} ${OpenCV_LIBS})
 
