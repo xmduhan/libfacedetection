@@ -70,8 +70,12 @@ if (PYTHON)
     FIND_PACKAGE(SWIG REQUIRED)
     INCLUDE(${SWIG_USE_FILE})
 
-    find_package(PythonLibs 2.7 REQUIRED )
+    find_package(OpenCV REQUIRED)
+    include_directories(${OpenCV_INCLUDE_DIRS})
+
+    find_package(PythonLibs 2.7 REQUIRED)
     INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
+    message("PYTHON_INCLUDE_PATH: ${PYTHON_INCLUDE_PATH}")
 
     INCLUDE_DIRECTORIES(${fdt_inc_dir})
     INCLUDE_DIRECTORIES(${fdt_base_dir}/python)
@@ -82,13 +86,13 @@ if (PYTHON)
         OUTPUT_VARIABLE PYTHON_SITE
         OUTPUT_STRIP_TRAILING_WHITESPACE)
     SET(NUMPY_INCLUDE_PATH ${PYTHON_SITE}/core/include)
-    message("NUMPY_INCLUDE_PATH: ${NUMPY_INCLUDE_PATH}")
+    INCLUDE_DIRECTORIES(${NUMPY_INCLUDE_PATH})
 
     SET(CMAKE_SWIG_FLAGS "")
 
     SET_SOURCE_FILES_PROPERTIES(python/libfdt.i CPLUSPLUS ON)
-    SWIG_ADD_MODULE(libfdt python python/libfdt.i)
-    SWIG_LINK_LIBRARIES(libfdt ${fdt_lib_static})
+    SWIG_ADD_MODULE(libfdt python python/libfdt.i python/libfdt.cpp)
+    SWIG_LINK_LIBRARIES(libfdt ${fdt_lib_static} ${OpenCV_LIBS})
 
 
 endif()
