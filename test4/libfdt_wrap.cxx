@@ -3603,55 +3603,6 @@ namespace swig {
 
 
 
-
-SWIGINTERN swig_type_info*
-SWIG_pchar_descriptor(void)
-{
-  static int init = 0;
-  static swig_type_info* info = 0;
-  if (!init) {
-    info = SWIG_TypeQuery("_p_char");
-    init = 1;
-  }
-  return info;
-}
-
-
-SWIGINTERNINLINE PyObject *
-SWIG_FromCharPtrAndSize(const char* carray, size_t size)
-{
-  if (carray) {
-    if (size > INT_MAX) {
-      swig_type_info* pchar_descriptor = SWIG_pchar_descriptor();
-      return pchar_descriptor ? 
-	SWIG_InternalNewPointerObj(const_cast< char * >(carray), pchar_descriptor, 0) : SWIG_Py_Void();
-    } else {
-#if PY_VERSION_HEX >= 0x03000000
-#if defined(SWIG_PYTHON_STRICT_BYTE_CHAR)
-      return PyBytes_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#else
-#if PY_VERSION_HEX >= 0x03010000
-      return PyUnicode_DecodeUTF8(carray, static_cast< Py_ssize_t >(size), "surrogateescape");
-#else
-      return PyUnicode_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-#endif
-#else
-      return PyString_FromStringAndSize(carray, static_cast< Py_ssize_t >(size));
-#endif
-    }
-  } else {
-    return SWIG_Py_Void();
-  }
-}
-
-
-SWIGINTERNINLINE PyObject * 
-SWIG_FromCharPtr(const char *cptr)
-{ 
-  return SWIG_FromCharPtrAndSize(cptr, (cptr ? strlen(cptr) : 0));
-}
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -3664,7 +3615,7 @@ SWIGINTERN PyObject *_wrap_facedetect_cnn(PyObject *SWIGUNUSEDPARM(self), PyObje
   PyArrayObject *array1 = NULL ;
   int is_new_object1 = 0 ;
   PyObject * obj0 = 0 ;
-  char *result = 0 ;
+  PyObject *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:facedetect_cnn",&obj0)) SWIG_fail;
   {
@@ -3680,8 +3631,8 @@ SWIGINTERN PyObject *_wrap_facedetect_cnn(PyObject *SWIGUNUSEDPARM(self), PyObje
     arg3 = (int) array_size(array1,2);
     arg4 = (unsigned char*) array_data(array1);
   }
-  result = (char *)facedetect_cnn(arg1,arg2,arg3,arg4);
-  resultobj = SWIG_FromCharPtr((const char *)result);
+  result = (PyObject *)facedetect_cnn(arg1,arg2,arg3,arg4);
+  resultobj = result;
   {
     if (is_new_object1 && array1)
     {
