@@ -16,7 +16,7 @@ PyObject * facedetect_cnn(int rows, int cols, int n, unsigned char * img)
     Mat image = cv::Mat(rows, cols, 16, img);
 
     pResults = facedetect_cnn(pBuffer, (unsigned char*)(image.ptr(0)), image.cols, image.rows, (int)image.step);
-    printf("%d faces detected.\n", (pResults ? *pResults : 0));
+    // printf("%d faces detected.\n", (pResults ? *pResults : 0));
 
     if (pResults){
         int count = *pResults;
