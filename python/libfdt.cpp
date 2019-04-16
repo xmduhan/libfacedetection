@@ -12,9 +12,7 @@ PyObject * facedetect_cnn(int rows, int cols, int n, unsigned char * img)
     unsigned char * pBuffer = (unsigned char *)malloc(DETECT_BUFFER_SIZE);
     PyObject * result;
 
-    printf("facedetect_cnn is called\n");
-    printf("cols=%d, rows=%d, n=%d\n", cols, rows, n);
-    // printf("----------- load array info--------------\n");
+    // printf("facedetect_cnn(cols=%d, rows=%d, n=%d\n)", cols, rows, n);
     Mat image = cv::Mat(rows, cols, 16, img);
 
     pResults = facedetect_cnn(pBuffer, (unsigned char*)(image.ptr(0)), image.cols, image.rows, (int)image.step);
@@ -33,7 +31,6 @@ PyObject * facedetect_cnn(int rows, int cols, int n, unsigned char * img)
             int confidence = p[4];
             int angle = p[5];
             //printf("face_rect=[%d, %d, %d, %d], confidence=%d, angle=%d\n", x,y,w,h,confidence, angle);
-            printf("{'rect': [%d, %d, %d, %d], 'confidence': %d, 'angle':%d},\n", x,y,w,h,confidence, angle);
             PyObject * record = Py_BuildValue("{s:i,s:i,s:i,s:i,s:i,s:i}", "x", x, "y", y, "w", w, "h", h, "confidence", confidence, "angle", angle);
             PyList_SetItem(result, i, record);
         }
