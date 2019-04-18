@@ -4,12 +4,12 @@
 #include <facedetectcnn.h>
 using namespace cv;
 #define DETECT_BUFFER_SIZE 0x20000
-
+unsigned char pBuffer[DETECT_BUFFER_SIZE];
 
 PyObject * facedetect_cnn(int rows, int cols, int n, unsigned char * img)
 {
     int * pResults = NULL;
-    unsigned char * pBuffer = (unsigned char *)malloc(DETECT_BUFFER_SIZE);
+    // unsigned char * pBuffer = (unsigned char *)malloc(DETECT_BUFFER_SIZE);
     PyObject * result;
 
     // printf("facedetect_cnn(cols=%d, rows=%d, n=%d\n)", cols, rows, n);
